@@ -28,3 +28,6 @@ __pycache__/
 *.log
 .env
 *.bak
+
+# wyjatki: pliki potrzebne stronie produkcyjnej
+!robots.txt

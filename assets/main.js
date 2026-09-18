@@ -18,7 +18,9 @@
   if (toggle && nav) {
     toggle.addEventListener('click', function () {
       nav.classList.toggle('open');
-      document.body.style.overflow = nav.classList.contains('open') ? 'hidden' : '';
+      var o = nav.classList.contains('open');
+      document.body.style.overflow = o ? 'hidden' : '';
+      toggle.setAttribute('aria-expanded', o ? 'true' : 'false');
     });
     Array.prototype.forEach.call(nav.querySelectorAll('.nav-links a'), function (a) {
       a.addEventListener('click', function () {
@@ -189,7 +191,7 @@
     var waBtn = kre.querySelector('[data-kre-wa]');
     var miasto = kre.querySelector('[data-kre-miasto]');
     var termin = kre.querySelector('[data-kre-termin]');
-    var pick = { co: 'wykoszenie zarośniętej działki', ile: 'do 20 arów' };
+    var pick = { co: 'koszenie', ile: 'do 20 arów' };
 
     function build() {
       var m = (miasto && miasto.value.trim()) || '';
@@ -219,6 +221,37 @@
     if (miasto) miasto.addEventListener('input', build);
     if (termin) termin.addEventListener('change', build);
     build();
+  }
+
+  /* --- przed / po: suwak --- */
+  Array.prototype.forEach.call(document.querySelectorAll('[data-ba]'), function (ba) {
+    var r = ba.querySelector('input');
+    function set() { ba.style.setProperty('--pos', r.value + '%'); }
+    r.addEventListener('input', set);
+    set();
+  });
+
+  /* --- formularz kontaktowy (FormSubmit, bez przeładowania strony) --- */
+  var form = document.querySelector('[data-form]');
+  if (form) {
+    var msg = form.querySelector('.f-msg');
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      if (form.querySelector('.hp input').value) return;
+      var btn = form.querySelector('button[type=submit]');
+      btn.disabled = true;
+      fetch(form.getAttribute('action'), {
+        method: 'POST', headers: { 'Accept': 'application/json' }, body: new FormData(form)
+      }).then(function (r) { return r.json(); }).then(function (j) {
+        if (String(j.success) !== 'true') throw new Error(j.message || 'blad');
+        msg.className = 'f-msg ok';
+        msg.textContent = 'Dziękujemy! Wiadomość dotarła. Oddzwonimy, jak tylko zejdziemy z maszyny.';
+        form.reset();
+      }).catch(function () {
+        msg.className = 'f-msg err';
+        msg.innerHTML = 'Nie udało się wysłać. Proszę zadzwonić: <a href="tel:+48694015371">694 015 371</a>.';
+      }).then(function () { btn.disabled = false; });
+    });
   }
 
   /* --- rok w stopce --- */
