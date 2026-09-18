@@ -64,8 +64,8 @@
     map.on('focus click', function () { map.scrollWheelZoom.enable(); });
     mapEl.addEventListener('mouseleave', function () { map.scrollWheelZoom.disable(); });
 
-    var range = L.circle(BASE, { radius: RANGE_KM * 1000, color: '#27533C', weight: 2, dashArray: '7 7', fillColor: '#27533C', fillOpacity: 0.07 }).addTo(map);
-    L.circle(BASE, { radius: FREE_KM * 1000, color: '#4F7A22', weight: 2, fillColor: '#8DB54A', fillOpacity: 0.32 }).addTo(map)
+    var range = L.circle(BASE, { radius: RANGE_KM * 1000, color: '#13302A', weight: 2, dashArray: '7 7', fillColor: '#13302A', fillOpacity: 0.06 }).addTo(map);
+    L.circle(BASE, { radius: FREE_KM * 1000, color: '#137A49', weight: 2, fillColor: '#3ED08A', fillOpacity: 0.28 }).addTo(map)
       .bindTooltip('Do 10 km: wycena i dojazd gratis', { sticky: true });
 
     L.marker(BASE, { icon: L.divIcon({ className: '', html: '<div class="pin-base"></div>', iconSize: [22, 22], iconAnchor: [11, 11] }), zIndexOffset: 1000, keyboard: false })
@@ -98,7 +98,7 @@
       var d = km(BASE, ll), z = zone(d);
       if (pickM) map.removeLayer(pickM);
       if (line) map.removeLayer(line);
-      line = L.polyline([BASE, ll], { color: '#4F2D11', weight: 3, dashArray: '2 8', lineCap: 'round' }).addTo(map);
+      line = L.polyline([BASE, ll], { color: '#13302A', weight: 3, dashArray: '2 8', lineCap: 'round' }).addTo(map);
       pickM = L.marker(ll, { icon: L.divIcon({ className: '', html: '<div class="pin-pick"></div>', iconSize: [20, 20], iconAnchor: [10, 20] }), zIndexOffset: 900 }).addTo(map);
       var label = name || 'Wskazane miejsce';
       var txt = {

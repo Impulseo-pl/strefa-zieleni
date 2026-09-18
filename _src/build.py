@@ -42,19 +42,19 @@ NAV = [('oferta.html', 'Oferta', 'oferta'), ('index.html#realizacje', 'Realizacj
 
 def header(active):
     links = ''.join(
-        f'<a href="{h}"{" aria-current=page" if k == active else ""}>{t}</a>' for h, t, k in NAV)
+        f'<a href="{h}"{" class=is-active" if k == active else ""}>{t}</a>' for h, t, k in NAV)
     return f'''<a class="skip" href="#tresc">Przejdź do treści</a>
 <header class="nav">
   <div class="wrap nav-inner">
-    <a class="brand" href="index.html" aria-label="Strefa Zieleni - strona główna"><img src="img/logo.png" alt="Strefa Zieleni - usługi ogrodnicze" width="228" height="100"></a>
+    <a class="brand" href="index.html" aria-label="Strefa Zieleni - strona główna"><img src="img/logo.png" alt="Strefa Zieleni - usługi ogrodnicze"></a>
     <nav class="nav-links" aria-label="Menu główne">
       {links}
       <span class="nav-cta">
-        <a class="nav-tel" href="{TEL_HREF}">{I['tel']} 694 015 371</a>
-        <a class="btn btn-olive btn-sm" href="{TEL_HREF}">Bezpłatna wycena</a>
+        <a class="nav-tel" href="{TEL_HREF}">{I['tel']} +48 694 015 371</a>
+        <a class="btn btn-wa btn-sm" href="{WA_HREF}" target="_blank" rel="noopener">{I['wa']} WhatsApp</a>
       </span>
     </nav>
-    <button class="nav-toggle" aria-label="Otwórz menu" aria-expanded="false"><span></span><span></span><span></span></button>
+    <button class="nav-toggle" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
   </div>
 </header>
 <main id="tresc">'''
@@ -64,45 +64,46 @@ def footer():
     nip = f'<p>NIP {FIRMA["nip"]}</p>' if FIRMA['nip'] else ''
     return f'''</main>
 <div class="lb" role="dialog" aria-modal="true" aria-label="Podgląd zdjęcia">
-  <button class="lb-x" aria-label="Zamknij">&times;</button>
-  <button class="lb-p" aria-label="Poprzednie zdjęcie">&#8249;</button>
-  <button class="lb-n" aria-label="Następne zdjęcie">&#8250;</button>
+  <button class="lb-x" aria-label="Zamknij"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.3 5.7 12 12l6.3 6.3-1.4 1.4L10.6 13.4 4.3 19.7 2.9 18.3 9.2 12 2.9 5.7l1.4-1.4L10.6 10.6l6.3-6.3 1.4 1.4Z"/></svg></button>
+  <button class="lb-p" aria-label="Poprzednie">&#8249;</button>
+  <button class="lb-n" aria-label="Następne">&#8250;</button>
   <img alt="">
   <div class="lb-cap"></div>
 </div>
+
 <footer>
   <div class="wrap">
     <div class="foot-grid">
-      <div>
-        <span class="foot-logo"><img src="img/logo.png" alt="Strefa Zieleni" width="228" height="100" loading="lazy"></span>
-        <p>Koszenie, wycinki, pielęgnacja ogrodów i sadów, czyszczenie działek, zimą odśnieżanie. Pajęczno i okolice do 40 km.</p>
+      <div class="foot-brand">
+        <img src="img/logo.png" alt="Strefa Zieleni">
+        <p>Koszenie, wycinki, pielęgnacja ogrodów i sadów, czyszczenie działek pod budowę, zimą odśnieżanie. Pajęczno i okolice do 40 km.</p>
       </div>
-      <div>
-        <h4>Usługi</h4>
-        <a href="oferta.html#koszenie">Koszenie</a><a href="oferta.html#wycinka">Wycinka drzew</a>
-        <a href="oferta.html#ogrody">Ogrody i sady</a><a href="oferta.html#dzialki">Czyszczenie działek</a>
-        <a href="oferta.html#odsniezanie">Odśnieżanie</a>
-      </div>
-      <div>
+      <div class="foot-col">
         <h4>Strona</h4>
-        <a href="obszar-dzialania.html">Obszar działania</a><a href="index.html#realizacje">Realizacje</a>
+        <a href="oferta.html">Oferta</a><a href="index.html#realizacje">Realizacje</a><a href="obszar-dzialania.html">Obszar działania</a>
         <a href="o-nas.html">O nas</a><a href="kontakt.html">Kontakt</a><a href="polityka-prywatnosci.html">Polityka prywatności</a>
       </div>
-      <div>
+      <div class="foot-col">
         <h4>Kontakt</h4>
         <a href="{TEL_HREF}">+48 694 015 371</a>
+        <a href="{WA_HREF}" target="_blank" rel="noopener">WhatsApp</a>
         <a href="mailto:sbrowarski89@gmail.com">sbrowarski89@gmail.com</a>
-        <p style="margin-top:12px">{FIRMA['nazwa']}<br>{FIRMA['adres']}</p>
+      </div>
+      <div class="foot-col">
+        <h4>Firma</h4>
+        <p>{FIRMA['nazwa']}<br>{FIRMA['adres']}</p>
         {nip}
-        <p>Wystawiamy faktury.</p>
+        <p>Wystawiamy faktury</p>
+        <a href="https://www.google.com/maps?cid=9829793342128266522" target="_blank" rel="noopener">Jak dojechać &rarr;</a>
       </div>
     </div>
     <div class="foot-bot">
       <span>&copy; <span data-year>2026</span> Strefa Zieleni &middot; Szymon Browarski</span>
-      <span>Projekt i wykonanie: <a href="https://impulseo.pl" target="_blank" rel="noopener">Impulseo</a></span>
+      <span>Projekt strony: <a class="foot-credit" href="https://impulseo.pl" target="_blank" rel="noopener">Impulseo</a></span>
     </div>
   </div>
 </footer>
+
 <div class="sticky-bar">
   <a class="s-tel" href="{TEL_HREF}">{I['tel']} Zadzwoń</a>
   <a class="s-wa" href="{WA_HREF}" target="_blank" rel="noopener">{I['wa']} WhatsApp</a>
@@ -113,7 +114,7 @@ BLOCKS = {}
 
 BLOCKS['AREA'] = f'''<div class="area reveal" data-area>
   <div class="area-side">
-    <h3>Czy do Ciebie dojedziemy?</h3>
+    <h3>Czy do Państwa dojedziemy?</h3>
     <div class="area-legend">
       <div><i class="lg-base"></i>Baza: Cmentarna 46, Pajęczno</div>
       <div><i class="lg-free"></i><span><b>Do 10 km</b>: wycena i dojazd gratis</span></div>
@@ -127,24 +128,24 @@ BLOCKS['AREA'] = f'''<div class="area reveal" data-area>
     <div class="area-chips" data-area-chips></div>
     <button type="button" class="area-geo" data-area-geo>{I['geo']} Użyj mojej lokalizacji</button>
     <div class="area-res" data-area-res>
-      <p class="d">Wybierz miejscowość albo <b>kliknij dowolne miejsce na mapie</b>. Pokażemy odległość od naszej bazy i warunki dojazdu.</p>
+      <p class="d">Proszę wybrać miejscowość albo <b>kliknąć dowolne miejsce na mapie</b>. Pokażemy odległość od naszej bazy i warunki dojazdu.</p>
     </div>
     <p class="area-hint">Odległość liczona w linii prostej od bazy w Pajęcznie. Drogą wychodzi zwykle trochę więcej, a dokładne warunki ustalamy przez telefon.</p>
   </div>
   <div class="area-map"><div class="map" role="application" aria-label="Mapa obszaru działania Strefy Zieleni"></div></div>
 </div>'''
 
-BLOCKS['KRE'] = f'''<section class="tinted" id="zapytanie">
+BLOCKS['KRE'] = f'''<section class="kre" id="zapytanie">
   <div class="wrap">
     <div class="head center reveal">
       <span class="eyebrow">Zapytanie w minutę</span>
-      <h2>Zaznacz, co trzeba zrobić</h2>
-      <p>Złożymy z tego gotową wiadomość na WhatsApp. Wystarczy ją wysłać, a najlepiej dołączyć zdjęcie terenu.</p>
+      <h2>Trzy kliknięcia i mamy komplet informacji</h2>
+      <p>Zamiast pisać wiadomość od zera, proszę zaznaczyć, co trzeba zrobić. Przygotujemy gotową treść, którą wystarczy wysłać na WhatsApp.</p>
     </div>
     <div class="kre-box reveal" data-kre>
       <div class="kre-form">
         <div class="kre-step">
-          <div class="kre-lab"><i>1</i> Usługa</div>
+          <div class="kre-lab"><i>1</i> Co trzeba zrobić</div>
           <div class="kre-opts" data-kre-group="co">
             <button type="button" class="on" data-val="koszenie">Koszenie</button>
             <button type="button" data-val="wycinka drzew">Wycinka drzew</button>
@@ -156,50 +157,53 @@ BLOCKS['KRE'] = f'''<section class="tinted" id="zapytanie">
           </div>
         </div>
         <div class="kre-step">
-          <div class="kre-lab"><i>2</i> Wielkość terenu</div>
+          <div class="kre-lab"><i>2</i> Jaki mniej więcej teren</div>
           <div class="kre-opts" data-kre-group="ile">
             <button type="button" class="on" data-val="do 20 arów">Do 20 arów</button>
             <button type="button" data-val="od 20 arów do hektara">20 arów - 1 ha</button>
-            <button type="button" data-val="powyżej hektara">Powyżej 1 ha</button>
-            <button type="button" data-val="wielkość do ustalenia">Nie wiem</button>
+            <button type="button" data-val="powyżej hektara">Powyżej hektara</button>
+            <button type="button" data-val="wielkość do ustalenia">Trudno powiedzieć</button>
           </div>
         </div>
         <div class="kre-step">
           <div class="kre-lab"><i>3</i> Gdzie i kiedy</div>
           <div class="kre-row">
-            <input class="kre-in" type="text" data-kre-miasto placeholder="Miejscowość" aria-label="Miejscowość">
+            <input class="kre-in" type="text" data-kre-miasto placeholder="Miejscowość, np. Pajęczno" aria-label="Miejscowość">
             <select class="kre-in" data-kre-termin aria-label="Termin">
-              <option value="jak najszybciej">Jak najszybciej</option>
-              <option value="w ciągu 2-3 tygodni">W ciągu 2-3 tygodni</option>
-              <option value="w tym sezonie">W tym sezonie</option>
-              <option value="dopiero planuję">Dopiero planuję</option>
+              <option value="jak najszybciej">Termin: jak najszybciej</option>
+              <option value="w ciągu 2-3 tygodni">Termin: 2-3 tygodnie</option>
+              <option value="w tym sezonie">Termin: w tym sezonie</option>
+              <option value="dopiero planuję">Termin: dopiero planuję</option>
             </select>
           </div>
         </div>
         <div class="kre-prev" data-kre-prev></div>
         <div class="kre-send">
           <a class="btn btn-wa" data-kre-wa href="{WA_HREF}" target="_blank" rel="noopener">{I['wa']} Wyślij na WhatsApp</a>
-          <span class="kre-hint">Otworzy się WhatsApp z gotową treścią. Nic nie wyśle się bez Twojego kliknięcia.</span>
+          <span class="kre-hint">Otworzy się WhatsApp z gotową wiadomością. Nic nie wysyła się bez Państwa kliknięcia.</span>
         </div>
       </div>
       <div class="kre-side">
-        <h3>Wolisz zadzwonić?</h3>
-        <p>Jeden telefon wystarczy, żeby ustalić, o jaki teren chodzi i kiedy przyjedziemy go obejrzeć. Jeśli nie odbieramy, jesteśmy przy maszynie. Oddzwonimy.</p>
-        <a class="kre-tel" href="{TEL_HREF}">{I['tel']} 694 015 371</a>
+        <h3>Wolą Państwo po prostu zadzwonić?</h3>
+        <p>Jeden telefon zwykle wystarczy, żeby ustalić, o jaki teren chodzi i kiedy możemy przyjechać obejrzeć.
+        Jeśli nie odbieramy, jesteśmy przy maszynie. Oddzwonimy.</p>
+        <a class="kre-tel" href="{TEL_HREF}">{I['tel']} +48 694 015 371</a>
       </div>
     </div>
   </div>
 </section>'''
 
-BLOCKS['CTA'] = f'''<section class="cta">
-  <img src="img/sz/09_ciagnik-kosiarka-bijakowa-w-akcji-m.jpg" alt="" loading="lazy">
-  <div class="wrap reveal">
-    <span class="eyebrow">Bezpłatna wycena</span>
-    <h2>Pokaż nam teren, podamy cenę</h2>
-    <p>Do 10 km od Pajęczna przyjeżdżamy obejrzeć teren i wyceniamy bez opłat. Dalej, do 40 km, też dojeżdżamy, a koszt dojazdu mówimy od razu przez telefon.</p>
-    <div class="cta-act">
-      <a class="btn btn-olive" href="{TEL_HREF}">{I['tel']} Zadzwoń 694 015 371</a>
-      <a class="btn btn-wa" href="{WA_HREF}" target="_blank" rel="noopener">{I['wa']} Wyślij zdjęcie na WhatsApp</a>
+BLOCKS['CTA'] = f'''<section class="cta-final">
+  <div class="wrap">
+    <div class="reveal">
+      <span class="eyebrow">Bezpłatna wycena</span>
+      <h2>Policzymy Państwa teren</h2>
+      <p>Do 10 km od Pajęczna przyjeżdżamy obejrzeć teren i wyceniamy bez opłat. Dalej, do 40 km, też dojeżdżamy, a koszt dojazdu mówimy od razu przez telefon.</p>
+      <div class="cta-act">
+        <a class="btn btn-lime" href="{TEL_HREF}">{I['tel']} Zadzwoń +48 694 015 371</a>
+        <a class="btn btn-wa" href="{WA_HREF}" target="_blank" rel="noopener">{I['wa']} Wyślij zdjęcie na WhatsApp</a>
+        <a class="btn btn-line" href="kontakt.html">Dane kontaktowe <span class="arr">&rarr;</span></a>
+      </div>
     </div>
   </div>
 </section>'''
@@ -258,7 +262,7 @@ def page(src):
 <title>{meta['title']}</title>
 <meta name="description" content="{meta['desc']}">
 {robots}<link rel="canonical" href="{canon}">
-<meta name="theme-color" content="#27533C">
+<meta name="theme-color" content="#13302A">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="pl_PL">
 <meta property="og:site_name" content="Strefa Zieleni">
@@ -270,7 +274,7 @@ def page(src):
 <link rel="apple-touch-icon" href="img/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Manrope:wght@400;500;700;800&display=swap" rel="stylesheet">
 {preload}{leaflet}<link rel="stylesheet" href="assets/styles.css?v={VER}">
 {lds}
 </head>
